@@ -14,5 +14,5 @@ void loop() {
  // Tomamos el dato y lo añadimos a la media
   Media_A.Media(analogRead(0));
  // Muestra el valor de la entrada pasado por la media movil
-  Serial.println(Media_A.get()); Muestra el valor de la entrada pasado por la media
+  Serial.println(Media_A.get()); 
 }
