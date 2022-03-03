@@ -11,14 +11,20 @@
 // en el programa principal
 
 
+
 #ifndef _Media_Movil_class_H
 #define _Media_Movil_class_H
+
+// EN EL CASO QUE SE DESEE PROCESAR LA TABLA EN LONG, SE DEBERÁ DESCOMENTAR
+// COMENTNADO LA LINEA FUNCIONARÁ EN FLOAT
+//#define MEDIA_LONG //DEFINE LA MEDIA EN FOMATO LONG
 
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
  #include "WProgram.h"
 #endif
+
 
 //Numero de muestras por defecto
 #ifndef MUESTRAS_MM_MAX
@@ -28,17 +34,35 @@
 
 class Media_Movil
 { private:
-   float  Medidas[MUESTRAS_MM_MAX];  //Tabla de valores de las últimas medidas para media para 20 variables con una media de 20 maxima
+#ifdef MEDIA_LONG
+   long Medidas[MUESTRAS_MM_MAX];  //Tabla de valores de las últimas medidas para media para 20 variables con una media de 20 maxima
+   long S_Medidas;  //Suma de las medidas
+#else
+   float Medidas[MUESTRAS_MM_MAX];  //Tabla de valores de las últimas medidas para media para 20 variables con una media de 20 maxima
    float S_Medidas;  //Suma de las medidas
+#endif   
    int Muestras;
    int Pini; //indexadores a tabla
 public:
    
    Media_Movil(){}; //constructor para servo. indicamos el las salidas del servo
    void init(int muestras);
+#ifdef MEDIA_LONG    
+   void  Media(long valor);  //almacena un nuevo valor y devuelve la media movil actual
+   long get();  //devuelve la media movil actual
+   long get_Mediana(); //devuelve la mediana
+
+ #else
    void  Media(float valor);  //almacena un nuevo valor y devuelve la media movil actual
    float get();  //devuelve la media movil actual
+   float get_Mediana(); //devuelve la mediana
+#endif
+	
 	};
+  #endif
+
+
+   
   #endif
 
 
