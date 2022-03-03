@@ -22,7 +22,7 @@ void Media_Movil::init(int muestras){
   // Pfin=Muestras; //iniciamos los punteros de la cola
 }
 
-#ifdef MEDIA_LONG 
+#ifdef ESP_H
 void  Media_Movil::Media(long valor)
 #else
 void  Media_Movil::Media(float valor)
@@ -44,21 +44,21 @@ void  Media_Movil::Media(float valor)
 }
 
 //toma la media movil actual
-#ifdef MEDIA_LONG 
+#ifdef ESP_H
 long Media_Movil::get()
 #else
 float Media_Movil::get()
 #endif
 {  return S_Medidas/(Muestras-1);}
 
-#ifdef MEDIA_LONG
+#ifdef ESP_H
 long Media_Movil::get_Mediana()
 #else
 float Media_Movil::get_Mediana()
 #endif
 {int i, j, l, m,kth;
 
-  #ifdef MEDIA_LONG
+  #ifdef ESP_H
    long x;
   #else
    float x;
@@ -78,7 +78,7 @@ float Media_Movil::get_Mediana()
       while (x < Medidas[j]) j--;
       if (i <= j)
       {
-        #ifdef MEDIA_LONG
+        #ifdef ESP_H
           long t = Medidas[j];
         #else
           float t = Medidas[j];
